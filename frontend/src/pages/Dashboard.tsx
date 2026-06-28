@@ -162,23 +162,18 @@ export default function Dashboard() {
                   paddingAngle={4}
                   dataKey="value"
                 >
-                  {pieData.map((_entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="w-full space-y-2 mt-4">
-              {pieData.map((_entry, index) => (
-                <div key={entry.name} className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index] }} />
-                    <span className="text-slate-600">{entry.name}</span>
-                  </div>
-                  <span className="font-medium text-slate-900">{entry.value}%</span>
-                </div>
-              ))}
+                 {pieData.map((entry, index) => (
+  <div key={entry.name} className="flex items-center justify-between text-sm">
+    <div className="flex items-center gap-2">
+      <div
+        className="w-3 h-3 rounded-full"
+        style={{ backgroundColor: COLORS[index % COLORS.length] }}
+      />
+      <span className="text-slate-600">{entry.name}</span>
+    </div>
+    <span className="font-medium text-slate-900">{entry.value}%</span>
+  </div>
+))}
             </div>
           </div>
         </div>
