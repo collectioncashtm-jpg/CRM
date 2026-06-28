@@ -72,6 +72,16 @@ router.get('/stats', async (req, res) => {
   }
 });
 
+// DELETE all customers — must be before /:id route
+router.delete('/all', async (req, res) => {
+  try {
+    const result = await Customer.deleteMany({});
+    res.json({ success: true, message: `${result.deletedCount} customers deleted successfully` });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // GET single customer
 router.get('/:id', async (req, res) => {
   try {
@@ -126,7 +136,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE customer
+// DELETE single customer
 router.delete('/:id', async (req, res) => {
   try {
     const customer = await Customer.findByIdAndDelete(req.params.id);
