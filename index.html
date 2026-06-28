@@ -1,0 +1,1428 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
+:root{--sb:#120929;--sb2:#1c0f3f;--ac:#7c3aed;--ac2:#a855f7;--bg:#f6f4ff;--card:#fff;--bdr:#e0d4ff;--txt:#1e0a3c;--txt2:#6c3dd4;--txt3:#9b6ff5;--lav:#ede5ff}
+body{background:var(--bg)}
+.crm{display:flex;height:760px;background:#0e0620;border-radius:16px;overflow:hidden}
+.sidebar{width:210px;background:var(--sb);flex-shrink:0;display:flex;flex-direction:column;border-right:0.5px solid rgba(124,58,237,0.2)}
+.logo-area{padding:14px;border-bottom:0.5px solid rgba(124,58,237,0.15);display:flex;align-items:center;gap:9px}
+.lb{width:34px;height:34px;background:#7c3aed;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#fff;flex-shrink:0}
+.ln{font-size:12px;font-weight:500;color:#fff}
+.ls{font-size:8.5px;color:rgba(196,168,252,0.45);letter-spacing:0.5px}
+.nav{flex:1;padding:8px 0;overflow-y:auto}
+.ns{font-size:8.5px;color:rgba(196,168,252,0.3);padding:10px 13px 3px;letter-spacing:1px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:11.5px;color:rgba(196,168,252,0.5);cursor:pointer;border-left:2px solid transparent;transition:all 0.12s;user-select:none}
+.ni:hover{color:rgba(196,168,252,0.85);background:rgba(124,58,237,0.08)}
+.ni.active{color:#fff;background:rgba(124,58,237,0.22);border-left-color:#a855f7}
+.ni i{font-size:14px;width:15px}
+.ni .sub-arrow{margin-left:auto;font-size:11px;transition:transform 0.2s}
+.sub-nav{display:none;flex-direction:column}
+.sub-nav.open{display:flex}
+.sub-ni{display:flex;align-items:center;gap:7px;padding:6px 13px 6px 35px;font-size:11px;color:rgba(196,168,252,0.45);cursor:pointer;border-left:2px solid transparent;transition:all 0.12s}
+.sub-ni:hover{color:rgba(196,168,252,0.8);background:rgba(124,58,237,0.06)}
+.sub-ni.active{color:#c4a8fc;border-left-color:#7c3aed}
+.sup-box{margin:10px;background:rgba(124,58,237,0.1);border:0.5px solid rgba(124,58,237,0.2);border-radius:9px;padding:9px 10px}
+.sup-t{font-size:10.5px;font-weight:500;color:#c4a8fc;margin-bottom:2px}
+.sup-d{font-size:9px;color:rgba(196,168,252,0.35);line-height:1.5}
+.main{flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0}
+.topbar{background:#fff;border-bottom:1px solid var(--bdr);padding:9px 16px;display:flex;align-items:center;gap:9px}
+.sbox{flex:1;max-width:320px;display:flex;align-items:center;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:0 10px;gap:6px}
+.sbox input{border:none;background:transparent;outline:none;font-size:11.5px;color:var(--txt);padding:6px 0;width:100%}
+.sbox i{color:var(--txt3);font-size:13px}
+.tbr{display:flex;align-items:center;gap:7px;margin-left:auto}
+.ib{width:31px;height:31px;border-radius:8px;border:1px solid var(--bdr);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;color:var(--ac)}
+.bdg{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#ef4444;border-radius:50%;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:500;border:1.5px solid #fff}
+.av{width:31px;height:31px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#fff}
+.content{flex:1;padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.page{display:none;flex-direction:column;gap:12px}
+.page.active{display:flex}
+.ph{display:flex;justify-content:space-between;align-items:flex-start}
+.ptitle{font-size:17px;font-weight:500;color:var(--txt)}
+.psub{font-size:11px;color:var(--txt3);margin-top:2px}
+.dchip{background:#fff;border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--txt2);display:flex;align-items:center;gap:5px}
+.kgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.kc{background:#fff;border:1px solid var(--bdr);border-radius:11px;padding:11px 12px}
+.ktop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.klbl{font-size:9.5px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.4px}
+.kico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.ki-pu{background:#ede5ff;color:#6c3dd4}
+.ki-gr{background:#d1fae5;color:#065f46}
+.ki-am{background:#fef3c7;color:#92400e}
+.ki-re{background:#fee2e2;color:#991b1b}
+.ki-cy{background:#dbeafe;color:#1e40af}
+.kval{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:2px}
+.ktrend{font-size:9.5px;color:#16a34a;display:flex;align-items:center;gap:2px}
+.vlink{font-size:10.5px;color:var(--ac);cursor:pointer;margin-top:5px}
+.mgrid{display:grid;grid-template-columns:1fr 0.6fr 0.5fr;gap:10px}
+.card{background:#fff;border:1px solid var(--bdr);border-radius:11px;padding:12px}
+.ctitle{font-size:11.5px;font-weight:500;color:var(--txt);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.bgrid{display:grid;grid-template-columns:1fr 0.42fr;gap:10px}
+.atbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.atbl th{text-align:left;color:var(--txt3);font-weight:400;font-size:9.5px;padding:0 5px 6px;border-bottom:1px solid #f0ebff;text-transform:uppercase;letter-spacing:0.4px}
+.atbl td{padding:6px 5px;border-bottom:0.5px solid #f6f4ff;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atbl tr:last-child td{border:none}
+.tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:500}
+.tp{background:#d1fae5;color:#065f46}
+.to{background:#fee2e2;color:#991b1b}
+.tc{background:#dbeafe;color:#1e40af}
+.te{background:#ede5ff;color:#4a1fa8}
+.ts{background:#f0fdf4;color:#166534}
+.rcol{display:flex;flex-direction:column;gap:10px}
+.qarow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.qab{background:var(--lav);border:1px solid var(--bdr);border-radius:8px;padding:8px 5px;font-size:9.5px;color:var(--txt);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.15s}
+.qab i{font-size:16px;color:var(--ac)}
+.qab:hover{background:#ede5ff;border-color:#c4a8fc}
+.lbar{height:7px;border-radius:20px;overflow:hidden;display:flex;margin:7px 0}
+.lseg{height:100%}
+.lleg{display:grid;grid-template-columns:1fr 1fr;gap:3px 5px}
+.llr{display:flex;align-items:center;gap:4px;font-size:9.5px;color:var(--txt2)}
+.lld{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.alist{display:flex;flex-direction:column;gap:5px}
+.arow{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:0.5px solid #f0ebff}
+.arow:last-child{border:none}
+.anum{font-size:9.5px;color:#c4a8fc;width:12px;font-weight:500}
+.aav{width:23px;height:23px;border-radius:50%;background:#ede5ff;display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:500;color:#4a1fa8;flex-shrink:0}
+.aname{font-size:10.5px;color:var(--txt);flex:1}
+.aamt{font-size:10.5px;font-weight:500;color:var(--ac)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:11.5px;cursor:pointer;border:none;font-weight:500;transition:all 0.15s}
+.btn-primary{background:var(--ac);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-secondary{background:var(--lav);color:var(--txt2);border:1px solid var(--bdr)}
+.btn-secondary:hover{background:#e0d4ff}
+.btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.btn-sm{padding:4px 9px;font-size:10.5px}
+.search-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.search-bar input{flex:1;background:#fff;border:1px solid var(--bdr);border-radius:8px;padding:7px 12px;font-size:11.5px;color:var(--txt);outline:none}
+.search-bar input:focus{border-color:var(--ac)}
+.tbl-wrap{background:#fff;border:1px solid var(--bdr);border-radius:11px;overflow:hidden}
+.full-tbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.full-tbl th{background:var(--lav);color:var(--txt2);font-weight:500;font-size:10px;padding:9px 10px;text-align:left;border-bottom:1px solid var(--bdr);text-transform:uppercase;letter-spacing:0.4px}
+.full-tbl td{padding:8px 10px;border-bottom:0.5px solid #f6f4ff;color:var(--txt);vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.full-tbl tr:last-child td{border:none}
+.full-tbl tr:hover td{background:#faf8ff}
+.modal-bg{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(30,10,60,0.45);z-index:100;align-items:center;justify-content:center;border-radius:16px}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:20px;width:480px;max-width:95%;max-height:90%;overflow-y:auto;border:1px solid var(--bdr)}
+.modal-title{font-size:15px;font-weight:500;color:var(--txt);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{cursor:pointer;color:var(--txt3);font-size:18px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.form-group label{font-size:10.5px;color:var(--txt2);font-weight:500}
+.form-group input,.form-group select{background:var(--bg);border:1px solid var(--bdr);border-radius:7px;padding:7px 10px;font-size:11.5px;color:var(--txt);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--ac)}
+.upload-zone{border:2px dashed var(--bdr);border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:var(--bg);transition:all 0.15s;margin-bottom:10px}
+.upload-zone:hover{border-color:var(--ac);background:var(--lav)}
+.upload-zone i{font-size:28px;color:var(--ac);display:block;margin-bottom:6px}
+.upload-zone p{font-size:11.5px;color:var(--txt2)}
+.upload-zone small{font-size:10px;color:var(--txt3)}
+.page-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+.stat-card{background:#fff;border:1px solid var(--bdr);border-radius:10px;padding:11px 12px}
+.stat-label{font-size:9.5px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px}
+.stat-val{font-size:17px;font-weight:500;color:var(--txt)}
+.stat-sub{font-size:9.5px;color:var(--txt3);margin-top:2px}
+.tabs{display:flex;gap:0;background:var(--lav);border-radius:9px;padding:3px;margin-bottom:12px;width:fit-content}
+.tab{padding:6px 14px;border-radius:7px;font-size:11.5px;color:var(--txt2);cursor:pointer;transition:all 0.15s}
+.tab.active{background:#fff;color:var(--ac);font-weight:500;box-shadow:0 1px 3px rgba(124,58,237,0.1)}
+.empty-state{text-align:center;padding:32px 20px;color:var(--txt3)}
+.empty-state i{font-size:36px;color:var(--bdr);display:block;margin-bottom:8px}
+.empty-state p{font-size:12px}
+.empty-state small{font-size:10.5px;color:var(--txt3)}
+.chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:500}
+.chip-active{background:#d1fae5;color:#065f46}
+.chip-closed{background:#f3f4f6;color:#374151}
+.chip-overdue{background:#fee2e2;color:#991b1b}
+.toast{position:absolute;bottom:16px;right:16px;background:#1e0a3c;color:#fff;padding:10px 16px;border-radius:9px;font-size:11.5px;z-index:200;display:none;align-items:center;gap:7px;border:1px solid rgba(124,58,237,0.4)}
+.toast.show{display:flex}
+.emi-plan-card{background:#fff;border:1px solid var(--bdr);border-radius:11px;padding:13px;margin-bottom:10px}
+.emi-plan-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.emi-plan-title{font-size:12.5px;font-weight:500;color:var(--txt)}
+.emi-plan-meta{font-size:10px;color:var(--txt3);margin-top:2px}
+.emi-tbl{width:100%;border-collapse:collapse;font-size:10.5px}
+.emi-tbl th{text-align:left;color:var(--txt3);font-weight:400;font-size:9.5px;padding:0 6px 5px;border-bottom:1px solid #f0ebff;text-transform:uppercase}
+.emi-tbl td{padding:5px 6px;border-bottom:0.5px solid #f9f7ff;color:var(--txt)}
+.emi-tbl tr:last-child td{border:none}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.info-item{background:var(--bg);border-radius:8px;padding:9px 11px}
+.info-key{font-size:9.5px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px}
+.info-val{font-size:12px;font-weight:500;color:var(--txt)}
+.pager{display:flex;align-items:center;gap:6px;margin-top:8px;justify-content:flex-end}
+.pager button{background:#fff;border:1px solid var(--bdr);border-radius:6px;padding:4px 9px;font-size:10.5px;color:var(--txt2);cursor:pointer}
+.pager button:hover{background:var(--lav)}
+.pager span{font-size:10.5px;color:var(--txt3)}
+.csel{font-size:10px;background:var(--bg);border:1px solid var(--bdr);border-radius:6px;padding:3px 7px;color:var(--txt2);outline:none}
+</style>
+
+<h2 class="sr-only">Narainsons Finance CRM — fully functional with CSV upload, customer management, loans, EMI plans, Top-up and Moratorium</h2>
+
+<div class="crm" style="position:relative">
+
+<div class="sidebar">
+  <div class="logo-area">
+    <div class="lb">NF</div>
+    <div><div class="ln">Narainsons</div><div class="ls">FINANCE & CONSULTANCY</div></div>
+  </div>
+  <nav class="nav">
+    <div class="ns">Main</div>
+    <div class="ni active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard</div>
+    <div class="ni" onclick="showPage('customers',this)"><i class="ti ti-users" aria-hidden="true"></i>Customers</div>
+    <div class="ni" onclick="showPage('loans',this)"><i class="ti ti-credit-card" aria-hidden="true"></i>Loans</div>
+    <div class="ni" onclick="showPage('collections',this)"><i class="ti ti-building-bank" aria-hidden="true"></i>Collections</div>
+    <div class="ns">Finance</div>
+    <div class="ni" onclick="showPage('emi',this)"><i class="ti ti-calendar" aria-hidden="true"></i>EMI Plans</div>
+    <div class="ni" onclick="showPage('topup',this)"><i class="ti ti-trending-up" aria-hidden="true"></i>Top-up</div>
+    <div class="ni" onclick="showPage('moratorium',this)"><i class="ti ti-pause" aria-hidden="true"></i>Moratorium</div>
+    <div class="ni" onclick="showPage('payments',this)"><i class="ti ti-receipt" aria-hidden="true"></i>Payments</div>
+    <div class="ns">Tools</div>
+    <div class="ni" onclick="showPage('reports',this)"><i class="ti ti-chart-bar" aria-hidden="true"></i>Reports</div>
+    <div class="ni" onclick="showPage('tasks',this)"><i class="ti ti-checkbox" aria-hidden="true"></i>Tasks</div>
+    <div class="ni" onclick="showPage('settings',this)"><i class="ti ti-settings" aria-hidden="true"></i>Settings</div>
+  </nav>
+  <div class="sup-box">
+    <div class="sup-t"><i class="ti ti-headset" style="font-size:11px;margin-right:3px" aria-hidden="true"></i>Support Team</div>
+    <div class="sup-d">9211220702 / 03 / 04<br>collection.cashtm@gmail.com</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="sbox"><i class="ti ti-search" aria-hidden="true"></i><input type="text" id="global-search" placeholder="Search customers, loans…" oninput="globalSearch(this.value)"></div>
+    <div class="tbr">
+      <div class="ib"><i class="ti ti-bell" style="font-size:14px" aria-hidden="true"></i><span class="bdg" id="notif-count">0</span></div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div class="av">AD</div>
+        <div><div style="font-size:11.5px;font-weight:500;color:#1e0a3c">Admin</div><div style="font-size:9.5px;color:#9b6ff5">Super Admin</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="ph">
+        <div><div class="ptitle">Dashboard</div><div class="psub">Welcome back, Admin</div></div>
+        <div class="dchip"><i class="ti ti-calendar" style="font-size:11px" aria-hidden="true"></i><span id="today-date"></span></div>
+      </div>
+      <div class="kgrid">
+        <div class="kc"><div class="ktop"><span class="klbl">Total Customers</span><div class="kico ki-pu"><i class="ti ti-users" aria-hidden="true"></i></div></div><div class="kval" id="kpi-cust">0</div><div class="ktrend"><i class="ti ti-trending-up" style="font-size:10px"></i><span id="kpi-cust-sub">Upload CSV to load</span></div></div>
+        <div class="kc"><div class="ktop"><span class="klbl">Active Loans</span><div class="kico ki-gr"><i class="ti ti-credit-card" aria-hidden="true"></i></div></div><div class="kval" id="kpi-active">0</div><div class="ktrend" id="kpi-active-sub" style="color:#16a34a">—</div></div>
+        <div class="kc"><div class="ktop"><span class="klbl">Total Outstanding</span><div class="kico ki-am"><i class="ti ti-currency-rupee" aria-hidden="true"></i></div></div><div class="kval" id="kpi-outstanding" style="font-size:12px">₹0</div><div class="ktrend"><i class="ti ti-trending-up" style="font-size:10px"></i>Total disbursed</div></div>
+        <div class="kc"><div class="ktop"><span class="klbl">Overdue Amount</span><div class="kico ki-re"><i class="ti ti-alert-circle" aria-hidden="true"></i></div></div><div class="kval" id="kpi-overdue" style="font-size:12px">₹0</div><div class="ktrend" id="kpi-overdue-trend" style="color:#dc2626">—</div></div>
+        <div class="kc"><div class="ktop"><span class="klbl">EMI Due Today</span><div class="kico ki-cy"><i class="ti ti-clock" aria-hidden="true"></i></div></div><div class="kval" id="kpi-emi">0</div><div class="vlink" onclick="showPage('emi',null);showEmiTab('emi')">View Details →</div></div>
+      </div>
+      <div class="mgrid">
+        <div class="card">
+          <div class="ctitle">Collection Summary <select class="csel" onchange="updateChart(this.value)"><option>Last 7 Days</option><option>Last 30 Days</option></select></div>
+          <svg viewBox="0 0 300 115" width="100%" style="overflow:visible">
+            <text x="0" y="10" font-size="8" fill="#c4a8fc">High</text>
+            <text x="0" y="55" font-size="8" fill="#c4a8fc">Mid</text>
+            <text x="0" y="100" font-size="8" fill="#c4a8fc">Low</text>
+            <line x1="18" y1="12" x2="300" y2="12" stroke="#f0ebff" stroke-width="0.5"/>
+            <line x1="18" y1="57" x2="300" y2="57" stroke="#f0ebff" stroke-width="0.5"/>
+            <polygon id="chart-fill" points="22,82 65,70 108,95 151,62 194,67 237,64 280,20 280,108 22,108" fill="#ede5ff" opacity="0.5"/>
+            <polyline id="chart-line" points="22,82 65,70 108,95 151,62 194,67 237,64 280,20" fill="none" stroke="#7c3aed" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="280" cy="20" r="3.5" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="card">
+          <div class="ctitle">Outstanding by Bucket</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+            <svg viewBox="0 0 110 110" width="90" height="90">
+              <circle cx="55" cy="55" r="38" fill="none" stroke="#7c3aed" stroke-width="16" stroke-dasharray="85.9 153" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="38" fill="none" stroke="#16a34a" stroke-width="16" stroke-dasharray="59.6 179.3" stroke-dashoffset="-85.9" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="38" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="45.5 192.4" stroke-dashoffset="-145.5" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="38" fill="none" stroke="#ef4444" stroke-width="16" stroke-dasharray="47.9 190" stroke-dashoffset="-191" transform="rotate(-90 55 55)"/>
+              <circle cx="55" cy="55" r="26" fill="#fff"/>
+              <text x="55" y="52" text-anchor="middle" font-size="8" font-weight="500" fill="#1e0a3c" id="donut-val">₹0</text>
+              <text x="55" y="63" text-anchor="middle" font-size="7" fill="#9b6ff5">Total</text>
+            </svg>
+            <div style="width:100%;display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:center;gap:5px;font-size:9.5px"><div style="width:7px;height:7px;border-radius:50%;background:#7c3aed;flex-shrink:0"></div><span style="color:#6c3dd4;flex:1">0–30 Days</span><span style="font-weight:500;color:#1e0a3c" id="b1">36%</span></div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:9.5px"><div style="width:7px;height:7px;border-radius:50%;background:#16a34a;flex-shrink:0"></div><span style="color:#6c3dd4;flex:1">31–60 Days</span><span style="font-weight:500;color:#1e0a3c" id="b2">25%</span></div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:9.5px"><div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div><span style="color:#6c3dd4;flex:1">61–90 Days</span><span style="font-weight:500;color:#1e0a3c" id="b3">19%</span></div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:9.5px"><div style="width:7px;height:7px;border-radius:50%;background:#ef4444;flex-shrink:0"></div><span style="color:#6c3dd4;flex:1">90+ Days</span><span style="font-weight:500;color:#1e0a3c" id="b4">20%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Top Agents</div>
+          <div class="alist" id="top-agents">
+            <div style="text-align:center;padding:10px;font-size:10px;color:#c4a8fc">No data yet</div>
+          </div>
+        </div>
+      </div>
+      <div class="bgrid">
+        <div class="card">
+          <div class="ctitle">Recent Activities <span class="vlink" onclick="showPage('customers',null)">View All →</span></div>
+          <table class="atbl">
+            <thead><tr><th style="width:14%">Type</th><th style="width:22%">Customer</th><th style="width:18%">Details</th><th style="width:14%">Amount</th><th style="width:16%">Status</th><th style="width:16%">Agent</th></tr></thead>
+            <tbody id="recent-tbody"><tr><td colspan="6" style="text-align:center;padding:16px;color:#c4a8fc;font-size:10.5px">Upload customer CSV to view activities</td></tr></tbody>
+          </table>
+        </div>
+        <div class="rcol">
+          <div class="card">
+            <div class="ctitle">Quick Actions</div>
+            <div class="qarow">
+              <div class="qab" onclick="openModal('modal-add-customer')"><i class="ti ti-user-plus" aria-hidden="true"></i><span>Add Customer</span></div>
+              <div class="qab" onclick="openModal('modal-add-loan')"><i class="ti ti-credit-card" aria-hidden="true"></i><span>Add Loan</span></div>
+              <div class="qab" onclick="openModal('modal-record-payment')"><i class="ti ti-currency-rupee" aria-hidden="true"></i><span>Record Payment</span></div>
+              <div class="qab" onclick="showPage('emi',null);showEmiTab('emi')"><i class="ti ti-calendar" aria-hidden="true"></i><span>Create EMI</span></div>
+              <div class="qab" onclick="openModal('modal-reminder')"><i class="ti ti-bell" aria-hidden="true"></i><span>Send Reminder</span></div>
+              <div class="qab" onclick="openModal('modal-add-task')"><i class="ti ti-checkbox" aria-hidden="true"></i><span>Add Task</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ctitle">Loan Status</div>
+            <div class="lbar"><div class="lseg" id="lb-active" style="width:0%;background:#7c3aed;border-radius:20px 0 0 20px"></div><div class="lseg" id="lb-closed" style="width:0%;background:#16a34a"></div><div class="lseg" id="lb-off" style="width:0%;background:#ef4444"></div><div class="lseg" id="lb-over" style="width:0%;background:#f59e0b;border-radius:0 20px 20px 0"></div></div>
+            <div class="lleg">
+              <div class="llr"><div class="lld" style="background:#7c3aed"></div><span id="ls-active">Active — 0</span></div>
+              <div class="llr"><div class="lld" style="background:#16a34a"></div><span id="ls-closed">Closed — 0</span></div>
+              <div class="llr"><div class="lld" style="background:#ef4444"></div><span id="ls-over2">Overdue — 0</span></div>
+              <div class="llr"><div class="lld" style="background:#f59e0b"></div><span id="ls-other">Other — 0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS PAGE -->
+    <div class="page" id="page-customers">
+      <div class="page-header-row">
+        <div><div class="ptitle">Customers</div></div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-secondary btn-sm" onclick="openModal('modal-upload-csv')"><i class="ti ti-upload" aria-hidden="true"></i>Upload CSV</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-customer')"><i class="ti ti-plus" aria-hidden="true"></i>Add Customer</button>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="c-total">0</div></div>
+        <div class="stat-card"><div class="stat-label">Active</div><div class="stat-val" style="color:#16a34a" id="c-active">0</div></div>
+        <div class="stat-card"><div class="stat-label">Overdue</div><div class="stat-val" style="color:#dc2626" id="c-overdue">0</div></div>
+        <div class="stat-card"><div class="stat-label">Closed</div><div class="stat-val" style="color:#6b7280" id="c-closed">0</div></div>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="cust-search" placeholder="Search by name, PAN, phone, account no…" oninput="filterCustomers(this.value)">
+        <select class="csel" onchange="filterCustomerStatus(this.value)" style="padding:7px 10px;font-size:11.5px">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="closed">Closed</option>
+          <option value="overdue">Overdue</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr>
+            <th style="width:14%">Name</th>
+            <th style="width:11%">PAN Card</th>
+            <th style="width:11%">Phone</th>
+            <th style="width:12%">Account No.</th>
+            <th style="width:11%">Disbursed Date</th>
+            <th style="width:11%">Disbursed Amt</th>
+            <th style="width:10%">Overdue</th>
+            <th style="width:9%">Status</th>
+            <th style="width:11%">Actions</th>
+          </tr></thead>
+          <tbody id="cust-tbody">
+            <tr><td colspan="8" style="text-align:center;padding:24px;color:#c4a8fc"><i class="ti ti-upload" style="font-size:18px;display:block;margin-bottom:6px" aria-hidden="true"></i>Upload customer CSV to load data</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager"><button onclick="changePage('cust',-1)">Prev</button><span id="cust-page-info">Page 1</span><button onclick="changePage('cust',1)">Next</button></div>
+    </div>
+
+    <!-- LOANS PAGE -->
+    <div class="page" id="page-loans">
+      <div class="page-header-row">
+        <div><div class="ptitle">Loans</div><div class="psub">All loan records</div></div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-loan')"><i class="ti ti-plus" aria-hidden="true"></i>New Loan</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="loan-search" placeholder="Search by name, account no…" oninput="filterLoans(this.value)">
+        <select class="csel" onchange="filterLoanStatus(this.value)" style="padding:7px 10px;font-size:11.5px">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="closed">Closed</option>
+          <option value="overdue">Overdue</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr>
+            <th style="width:18%">Customer</th>
+            <th style="width:14%">Account No.</th>
+            <th style="width:12%">Disbursed Date</th>
+            <th style="width:14%">Disbursed Amt</th>
+            <th style="width:12%">Overdue Amt</th>
+            <th style="width:10%">Status</th>
+            <th style="width:20%">Actions</th>
+          </tr></thead>
+          <tbody id="loan-tbody">
+            <tr><td colspan="7" style="text-align:center;padding:24px;color:#c4a8fc">No loan data. Upload CSV from Customers page.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager"><button onclick="changePage('loan',-1)">Prev</button><span id="loan-page-info">Page 1</span><button onclick="changePage('loan',1)">Next</button></div>
+    </div>
+
+    <!-- COLLECTIONS PAGE -->
+    <div class="page" id="page-collections">
+      <div class="page-header-row">
+        <div><div class="ptitle">Collections</div><div class="psub">Track overdue & recovery</div></div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-record-payment')"><i class="ti ti-plus" aria-hidden="true"></i>Record Payment</button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr>
+            <th style="width:20%">Customer</th>
+            <th style="width:13%">Phone</th>
+            <th style="width:14%">Account No.</th>
+            <th style="width:15%">Overdue Amt</th>
+            <th style="width:12%">Status</th>
+            <th style="width:26%">Actions</th>
+          </tr></thead>
+          <tbody id="coll-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:24px;color:#c4a8fc">No overdue records found.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EMI PLANS PAGE -->
+    <div class="page" id="page-emi">
+      <div class="page-header-row">
+        <div><div class="ptitle">EMI Plans</div><div class="psub">Regular EMI schedules</div></div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-secondary btn-sm" onclick="openModal('modal-upload-emi')"><i class="ti ti-upload" aria-hidden="true"></i>Upload EMI CSV</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-create-emi')"><i class="ti ti-plus" aria-hidden="true"></i>Create EMI Plan</button>
+        </div>
+      </div>
+      <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="stat-label">Total Plans</div><div class="stat-val" id="emi-total">0</div></div>
+        <div class="stat-card"><div class="stat-label">Active</div><div class="stat-val" style="color:#7c3aed" id="emi-active">0</div></div>
+        <div class="stat-card"><div class="stat-label">Customers Covered</div><div class="stat-val" id="emi-covered">0</div></div>
+      </div>
+      <div id="emi-plans-list">
+        <div class="empty-state"><i class="ti ti-calendar-off" aria-hidden="true"></i><p>No EMI plans yet</p><small>Upload EMI CSV or create a new plan</small></div>
+      </div>
+    </div>
+
+    <!-- TOP-UP PAGE -->
+    <div class="page" id="page-topup">
+      <div class="page-header-row">
+        <div><div class="ptitle">Top-up</div><div class="psub">Top-up loan records</div></div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-secondary btn-sm" onclick="openModal('modal-upload-topup')"><i class="ti ti-upload" aria-hidden="true"></i>Upload Top-up CSV</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-create-topup')"><i class="ti ti-plus" aria-hidden="true"></i>Create Top-up</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:10px">
+        <div style="font-size:11.5px;color:var(--txt2)">A top-up loan adds extra credit on an existing active loan. Upload Top-up CSV or create manually.</div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr>
+            <th style="width:20%">Customer</th>
+            <th style="width:15%">Account No.</th>
+            <th style="width:13%">Top-up Amt</th>
+            <th style="width:13%">EMI Start</th>
+            <th style="width:13%">EMI End</th>
+            <th style="width:13%">Monthly EMI</th>
+            <th style="width:13%">Status</th>
+          </tr></thead>
+          <tbody id="topup-tbody">
+            <tr><td colspan="7" style="text-align:center;padding:20px;color:#c4a8fc">No top-up records. Upload CSV or add manually.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MORATORIUM PAGE -->
+    <div class="page" id="page-moratorium">
+      <div class="page-header-row">
+        <div><div class="ptitle">Moratorium</div><div class="psub">EMI pause records</div></div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-secondary btn-sm" onclick="openModal('modal-upload-mora')"><i class="ti ti-upload" aria-hidden="true"></i>Upload Moratorium CSV</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-create-mora')"><i class="ti ti-plus" aria-hidden="true"></i>Create Moratorium</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:10px">
+        <div style="font-size:11.5px;color:var(--txt2)">Moratorium is a temporary pause on EMI payments. Interest may or may not accrue during this period.</div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr>
+            <th style="width:20%">Customer</th>
+            <th style="width:15%">Account No.</th>
+            <th style="width:13%">Mora. Start</th>
+            <th style="width:13%">Mora. End</th>
+            <th style="width:13%">Interest</th>
+            <th style="width:13%">New EMI End</th>
+            <th style="width:13%">Status</th>
+          </tr></thead>
+          <tbody id="mora-tbody">
+            <tr><td colspan="7" style="text-align:center;padding:20px;color:#c4a8fc">No moratorium records. Upload CSV or add manually.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAYMENTS PAGE -->
+    <div class="page" id="page-payments">
+      <div class="page-header-row">
+        <div><div class="ptitle">Payments</div><div class="psub">All payment records</div></div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-record-payment')"><i class="ti ti-plus" aria-hidden="true"></i>Record Payment</button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="full-tbl">
+          <thead><tr><th style="width:22%">Customer</th><th style="width:18%">Account No.</th><th style="width:14%">Amount</th><th style="width:16%">Date</th><th style="width:15%">Type</th><th style="width:15%">Recorded By</th></tr></thead>
+          <tbody id="pay-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:24px;color:#c4a8fc">No payments recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REPORTS PAGE -->
+    <div class="page" id="page-reports">
+      <div class="ptitle" style="margin-bottom:12px">Reports</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="card" style="cursor:pointer" onclick="generateReport('portfolio')"><div class="ctitle"><i class="ti ti-chart-pie" style="color:#7c3aed;margin-right:6px" aria-hidden="true"></i>Portfolio Summary</div><div style="font-size:11px;color:var(--txt3)">Total customers, loans, outstanding amounts</div></div>
+        <div class="card" style="cursor:pointer" onclick="generateReport('overdue')"><div class="ctitle"><i class="ti ti-alert-triangle" style="color:#dc2626;margin-right:6px" aria-hidden="true"></i>Overdue Report</div><div style="font-size:11px;color:var(--txt3)">All overdue accounts and amounts</div></div>
+        <div class="card" style="cursor:pointer" onclick="generateReport('collection')"><div class="ctitle"><i class="ti ti-cash" style="color:#16a34a;margin-right:6px" aria-hidden="true"></i>Collection Report</div><div style="font-size:11px;color:var(--txt3)">Payments received this month</div></div>
+        <div class="card" style="cursor:pointer" onclick="generateReport('emi')"><div class="ctitle"><i class="ti ti-calendar-stats" style="color:#f59e0b;margin-right:6px" aria-hidden="true"></i>EMI Due Report</div><div style="font-size:11px;color:var(--txt3)">Upcoming EMI schedules</div></div>
+      </div>
+      <div id="report-output" style="margin-top:10px"></div>
+    </div>
+
+    <!-- TASKS PAGE -->
+    <div class="page" id="page-tasks">
+      <div class="page-header-row">
+        <div><div class="ptitle">Tasks</div></div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-task')"><i class="ti ti-plus" aria-hidden="true"></i>Add Task</button>
+      </div>
+      <div id="tasks-list" style="display:flex;flex-direction:column;gap:7px">
+        <div class="empty-state"><i class="ti ti-checkbox" aria-hidden="true"></i><p>No tasks yet</p><small>Add a task to get started</small></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="page-settings">
+      <div class="ptitle" style="margin-bottom:12px">Settings</div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="ctitle">Company Info</div>
+        <div class="form-row"><div class="form-group"><label>Company Name</label><input type="text" value="Narainsons Finance & Consultancy Pvt. Ltd."></div><div class="form-group"><label>Version</label><input type="text" value="2.0.0" readonly></div></div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('Settings saved!')">Save Changes</button>
+      </div>
+      <div class="card">
+        <div class="ctitle">Data Management</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-secondary btn-sm" onclick="exportCSV()"><i class="ti ti-download" aria-hidden="true"></i>Export Customers CSV</button>
+          <button class="btn btn-danger btn-sm" onclick="clearAllData()"><i class="ti ti-trash" aria-hidden="true"></i>Clear All Data</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-bg" id="modal-upload-csv" onclick="closeModalBg(event,'modal-upload-csv')">
+  <div class="modal">
+    <div class="modal-title">Upload Customer CSV <span class="modal-close" onclick="closeModal('modal-upload-csv')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div style="background:#f6f4ff;border:1px solid var(--bdr);border-radius:9px;padding:10px 12px;margin-bottom:12px;font-size:10.5px;color:var(--txt2)">
+      <strong style="color:var(--ac)">Required CSV columns:</strong><br>
+      name, pan_card, phone_no, acc_no, disbursed_date, disbursed_amt, overdue, status
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('csv-file-input').click()">
+      <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+      <p>Click to select Customer CSV file</p>
+      <small>Columns: name, pan_card, phone_no, acc_no, disbursed_date, disbursed_amt, overdue, status</small>
+    </div>
+    <input type="file" id="csv-file-input" accept=".csv" style="display:none" onchange="handleCustomerCSV(this)">
+    <div id="csv-preview" style="margin-top:8px;font-size:10.5px;color:var(--txt2)"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-upload-csv')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-upload-emi" onclick="closeModalBg(event,'modal-upload-emi')">
+  <div class="modal">
+    <div class="modal-title">Upload EMI CSV <span class="modal-close" onclick="closeModal('modal-upload-emi')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div style="background:#f6f4ff;border:1px solid var(--bdr);border-radius:9px;padding:10px 12px;margin-bottom:12px;font-size:10.5px;color:var(--txt2)">
+      <strong style="color:var(--ac)">Required columns:</strong> name, dob, pan_card, mobile, address, acc_no, emi_start_date, emi_end_date, total_emi, total_paid_emi, total_amt, amt_left
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('emi-file-input').click()">
+      <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+      <p>Click to select EMI CSV file</p>
+    </div>
+    <input type="file" id="emi-file-input" accept=".csv" style="display:none" onchange="handleEmiCSV(this)">
+    <div id="emi-csv-preview" style="margin-top:8px;font-size:10.5px;color:var(--txt2)"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-upload-emi')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-upload-topup" onclick="closeModalBg(event,'modal-upload-topup')">
+  <div class="modal">
+    <div class="modal-title">Upload Top-up CSV <span class="modal-close" onclick="closeModal('modal-upload-topup')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div style="background:#f6f4ff;border:1px solid var(--bdr);border-radius:9px;padding:10px 12px;margin-bottom:12px;font-size:10.5px;color:var(--txt2)">
+      <strong style="color:var(--ac)">Required columns:</strong> acc_no, topup_amount, emi_start_date, emi_end_date, monthly_emi, status
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('topup-file-input').click()">
+      <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+      <p>Click to select Top-up CSV file</p>
+    </div>
+    <input type="file" id="topup-file-input" accept=".csv" style="display:none" onchange="handleTopupCSV(this)">
+    <div id="topup-csv-preview" style="margin-top:8px;font-size:10.5px;color:var(--txt2)"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-upload-topup')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-upload-mora" onclick="closeModalBg(event,'modal-upload-mora')">
+  <div class="modal">
+    <div class="modal-title">Upload Moratorium CSV <span class="modal-close" onclick="closeModal('modal-upload-mora')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div style="background:#f6f4ff;border:1px solid var(--bdr);border-radius:9px;padding:10px 12px;margin-bottom:12px;font-size:10.5px;color:var(--txt2)">
+      <strong style="color:var(--ac)">Required columns:</strong> acc_no, moratorium_start, moratorium_end, interest_accrual (yes/no), new_emi_end_date, status
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('mora-file-input').click()">
+      <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+      <p>Click to select Moratorium CSV file</p>
+    </div>
+    <input type="file" id="mora-file-input" accept=".csv" style="display:none" onchange="handleMoraCSV(this)">
+    <div id="mora-csv-preview" style="margin-top:8px;font-size:10.5px;color:var(--txt2)"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-upload-mora')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-add-customer" onclick="closeModalBg(event,'modal-add-customer')">
+  <div class="modal">
+    <div class="modal-title">Add New Customer <span class="modal-close" onclick="closeModal('modal-add-customer')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Full Name</label><input type="text" id="nc-name" placeholder="Rahul Sharma"></div>
+      <div class="form-group"><label>PAN Card</label><input type="text" id="nc-pan" placeholder="ABCDE1234F"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Phone No.</label><input type="text" id="nc-phone" placeholder="9876543210"></div>
+      <div class="form-group"><label>Account No.</label><input type="text" id="nc-acc" placeholder="LN12345"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Disbursed Date</label><input type="date" id="nc-date"></div>
+      <div class="form-group"><label>Disbursed Amount (₹)</label><input type="number" id="nc-amt" placeholder="100000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Overdue Amount (₹)</label><input type="number" id="nc-overdue" placeholder="0"></div>
+      <div class="form-group"><label>Status</label><select id="nc-status"><option value="active">Active</option><option value="closed">Closed</option><option value="overdue">Overdue</option></select></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-add-customer')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="addCustomer()">Add Customer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-add-loan" onclick="closeModalBg(event,'modal-add-loan')">
+  <div class="modal">
+    <div class="modal-title">Add New Loan <span class="modal-close" onclick="closeModal('modal-add-loan')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Customer Name</label><input type="text" id="nl-name" placeholder="Customer name"></div>
+      <div class="form-group"><label>Account No.</label><input type="text" id="nl-acc" placeholder="LN12345"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Disbursed Date</label><input type="date" id="nl-date"></div>
+      <div class="form-group"><label>Disbursed Amount (₹)</label><input type="number" id="nl-amt" placeholder="100000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Overdue Amount (₹)</label><input type="number" id="nl-overdue" placeholder="0"></div>
+      <div class="form-group"><label>Status</label><select id="nl-status"><option value="active">Active</option><option value="closed">Closed</option><option value="overdue">Overdue</option></select></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-add-loan')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="addLoan()">Add Loan</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-record-payment" onclick="closeModalBg(event,'modal-record-payment')">
+  <div class="modal">
+    <div class="modal-title">Record Payment <span class="modal-close" onclick="closeModal('modal-record-payment')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Customer Name</label><input type="text" id="rp-name" placeholder="Customer name"></div>
+      <div class="form-group"><label>Account No.</label><input type="text" id="rp-acc" placeholder="LN12345"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Amount (₹)</label><input type="number" id="rp-amt" placeholder="5000"></div>
+      <div class="form-group"><label>Payment Type</label><select id="rp-type"><option>EMI Payment</option><option>Part Payment</option><option>Overdue Payment</option><option>Pre-closure</option></select></div>
+    </div>
+    <div class="form-group"><label>Date</label><input type="date" id="rp-date"></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-record-payment')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="recordPayment()">Record</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-create-emi" onclick="closeModalBg(event,'modal-create-emi')">
+  <div class="modal">
+    <div class="modal-title">Create EMI Plan <span class="modal-close" onclick="closeModal('modal-create-emi')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Customer Name</label><input type="text" id="ce-name" placeholder="Rahul Sharma"></div>
+      <div class="form-group"><label>Account No.</label><input type="text" id="ce-acc" placeholder="LN12345"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Date of Birth</label><input type="date" id="ce-dob"></div>
+      <div class="form-group"><label>PAN Card</label><input type="text" id="ce-pan" placeholder="ABCDE1234F"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Mobile</label><input type="text" id="ce-mobile" placeholder="9876543210"></div>
+      <div class="form-group"><label>EMI Start Date</label><input type="date" id="ce-start"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>EMI End Date</label><input type="date" id="ce-end"></div>
+      <div class="form-group"><label>Total EMI (months)</label><input type="number" id="ce-emi" placeholder="24"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Total Paid EMI</label><input type="number" id="ce-paid-emi" placeholder="6"></div>
+      <div class="form-group"><label>Total Amount (₹)</label><input type="number" id="ce-principal" placeholder="100000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Amount Left (₹)</label><input type="number" id="ce-amt-left" placeholder="75000"></div>
+      <div class="form-group"><label>Address</label><input type="text" id="ce-address" placeholder="Delhi"></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-create-emi')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createEmiPlan()">Create Plan</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-create-topup" onclick="closeModalBg(event,'modal-create-topup')">
+  <div class="modal">
+    <div class="modal-title">Create Top-up <span class="modal-close" onclick="closeModal('modal-create-topup')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Account No.</label><input type="text" id="ct-acc" placeholder="LN12345"></div>
+      <div class="form-group"><label>Top-up Amount (₹)</label><input type="number" id="ct-amt" placeholder="50000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>EMI Start Date</label><input type="date" id="ct-start"></div>
+      <div class="form-group"><label>EMI End Date</label><input type="date" id="ct-end"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Monthly EMI (₹)</label><input type="number" id="ct-emi" placeholder="3000"></div>
+      <div class="form-group"><label>Status</label><select id="ct-status"><option>Active</option><option>Closed</option></select></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-create-topup')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createTopup()">Create Top-up</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-create-mora" onclick="closeModalBg(event,'modal-create-mora')">
+  <div class="modal">
+    <div class="modal-title">Create Moratorium <span class="modal-close" onclick="closeModal('modal-create-mora')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-row">
+      <div class="form-group"><label>Account No.</label><input type="text" id="cm-acc" placeholder="LN12345"></div>
+      <div class="form-group"><label>Interest Accrual</label><select id="cm-interest"><option value="yes">Yes</option><option value="no">No</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Moratorium Start</label><input type="date" id="cm-start"></div>
+      <div class="form-group"><label>Moratorium End</label><input type="date" id="cm-end"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>New EMI End Date</label><input type="date" id="cm-new-end"></div>
+      <div class="form-group"><label>Status</label><select id="cm-status"><option>Active</option><option>Completed</option></select></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-create-mora')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createMora()">Create Moratorium</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-reminder" onclick="closeModalBg(event,'modal-reminder')">
+  <div class="modal">
+    <div class="modal-title">Send Reminder <span class="modal-close" onclick="closeModal('modal-reminder')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-group"><label>Customer / Account No.</label><input type="text" id="rem-cust" placeholder="Name or Account No."></div>
+    <div class="form-group"><label>Message</label><input type="text" id="rem-msg" placeholder="Your EMI is due on…"></div>
+    <div class="form-group"><label>Channel</label><select id="rem-ch"><option>SMS</option><option>WhatsApp</option><option>Email</option><option>Call</option></select></div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-reminder')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="sendReminder()">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-add-task" onclick="closeModalBg(event,'modal-add-task')">
+  <div class="modal">
+    <div class="modal-title">Add Task <span class="modal-close" onclick="closeModal('modal-add-task')"><i class="ti ti-x" aria-hidden="true"></i></span></div>
+    <div class="form-group"><label>Task Title</label><input type="text" id="task-title" placeholder="Follow up with Rahul Sharma"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Due Date</label><input type="date" id="task-date"></div>
+      <div class="form-group"><label>Priority</label><select id="task-priority"><option>High</option><option>Medium</option><option>Low</option></select></div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-add-task')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="addTask()">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="ti ti-check" aria-hidden="true"></i><span id="toast-msg">Done!</span></div>
+
+</div>
+
+<script>
+let customers=[],emiPlans=[],topups=[],moratoria=[],payments=[],tasks=[];
+let custPage=0,loanPage=0,pageSize=10;
+let custFilter='',custStatusFilter='',loanFilter='',loanStatusFilter='';
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function closeModalBg(e,id){if(e.target.id===id)closeModal(id)}
+
+function showPage(name,navEl){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg)pg.classList.add('active');
+  if(navEl)navEl.classList.add('active');
+}
+
+function openSubNav(){}
+function toggleSubNav(){}
+function showEmiTab(tab){showPage('emi',null);}
+
+
+function parseCSV(text){
+  const lines=text.trim().split('\n');
+  const headers=lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/\s+/g,'_'));
+  return lines.slice(1).filter(l=>l.trim()).map(line=>{
+    const vals=line.split(',').map(v=>v.trim());
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=vals[i]||'');
+    return obj;
+  });
+}
+
+function handleCustomerCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=parseCSV(e.target.result);
+      customers=data.map(r=>({
+        name:r.name||r.Name||'',
+        pan_card:r.pan_card||r.pan||'',
+        phone_no:r.phone_no||r.phone||'',
+        acc_no:r.acc_no||r.account_no||'',
+        disbursed_date:r.disbursed_date||'',
+        disbursed_amt:parseFloat(r.disbursed_amt||r.disbursed_amount||0)||0,
+        overdue:parseFloat(r.overdue||r.overdue_amt||0)||0,
+        status:(r.status||'active').toLowerCase()
+      })).filter(r=>r.name);
+      document.getElementById('csv-preview').textContent=`Loaded ${customers.length} customers successfully.`;
+      document.getElementById('csv-preview').style.color='#16a34a';
+      setTimeout(()=>{closeModal('modal-upload-csv');updateAllData();showToast(`${customers.length} customers loaded!`);},500);
+    }catch(err){
+      document.getElementById('csv-preview').textContent='Error parsing CSV. Check column names.';
+      document.getElementById('csv-preview').style.color='#dc2626';
+    }
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function handleEmiCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=parseCSV(e.target.result);
+      emiPlans=data.map(r=>({
+        name:r.name||'',
+        dob:r.dob||'',
+        pan_card:r.pan_card||r.pan||'',
+        mobile:r.mobile||r.phone_no||r.phone||'',
+        address:r.address||'',
+        acc_no:r.acc_no||r.account_no||'',
+        emi_start_date:r.emi_start_date||'',
+        emi_end_date:r.emi_end_date||'',
+        total_emi:parseInt(r.total_emi||0)||0,
+        total_paid_emi:parseInt(r.total_paid_emi||0)||0,
+        total_amt:parseFloat(r.total_amt||0)||0,
+        amt_left:parseFloat(r.amt_left||0)||0
+      })).filter(r=>r.acc_no);
+      setTimeout(()=>{closeModal('modal-upload-emi');renderEmiPlans();showToast(`${emiPlans.length} EMI plans loaded!`);},500);
+    }catch(err){showToast('Error parsing EMI CSV');}
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function handleTopupCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=parseCSV(e.target.result);
+      topups=data.map(r=>({
+        acc_no:r.acc_no||r.account_no||'',
+        topup_amount:parseFloat(r.topup_amount||0)||0,
+        emi_start_date:r.emi_start_date||'',
+        emi_end_date:r.emi_end_date||'',
+        monthly_emi:parseFloat(r.monthly_emi||0)||0,
+        status:r.status||'Active'
+      })).filter(r=>r.acc_no);
+      setTimeout(()=>{closeModal('modal-upload-topup');renderTopups();showToast(`${topups.length} top-up records loaded!`);},500);
+    }catch(err){showToast('Error parsing Top-up CSV');}
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function handleMoraCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=parseCSV(e.target.result);
+      moratoria=data.map(r=>({
+        acc_no:r.acc_no||r.account_no||'',
+        moratorium_start:r.moratorium_start||'',
+        moratorium_end:r.moratorium_end||'',
+        interest_accrual:r.interest_accrual||'no',
+        new_emi_end_date:r.new_emi_end_date||'',
+        status:r.status||'Active'
+      })).filter(r=>r.acc_no);
+      setTimeout(()=>{closeModal('modal-upload-mora');renderMoratoria();showToast(`${moratoria.length} moratorium records loaded!`);},500);
+    }catch(err){showToast('Error parsing Moratorium CSV');}
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function fmtAmt(v){
+  if(!v||v===0)return '₹0';
+  if(v>=10000000)return '₹'+(v/10000000).toFixed(2)+'Cr';
+  if(v>=100000)return '₹'+(v/100000).toFixed(2)+'L';
+  return '₹'+Math.round(v).toLocaleString('en-IN');
+}
+
+function getCustName(accNo){
+  const c=customers.find(c=>c.acc_no===accNo);
+  return c?c.name:accNo;
+}
+
+function updateAllData(){
+  const total=customers.length;
+  const active=customers.filter(c=>c.status==='active').length;
+  const overdue=customers.filter(c=>c.status==='overdue').length;
+  const closed=customers.filter(c=>c.status==='closed').length;
+  const totalAmt=customers.reduce((s,c)=>s+c.disbursed_amt,0);
+  const overdueAmt=customers.reduce((s,c)=>s+c.overdue,0);
+
+  document.getElementById('kpi-cust').textContent=total;
+  document.getElementById('kpi-cust-sub').textContent=`${active} active, ${overdue} overdue`;
+  document.getElementById('kpi-active').textContent=active;
+  document.getElementById('kpi-outstanding').textContent=fmtAmt(totalAmt);
+  document.getElementById('kpi-overdue').textContent=fmtAmt(overdueAmt);
+  document.getElementById('kpi-emi').textContent=emiPlans.length;
+  document.getElementById('donut-val').textContent=fmtAmt(totalAmt);
+  document.getElementById('notif-count').textContent=overdue;
+
+  document.getElementById('c-total').textContent=total;
+  document.getElementById('c-active').textContent=active;
+  document.getElementById('c-overdue').textContent=overdue;
+  document.getElementById('c-closed').textContent=closed;
+
+  const t=active+closed+overdue||1;
+  document.getElementById('lb-active').style.width=(active/t*100)+'%';
+  document.getElementById('lb-closed').style.width=(closed/t*100)+'%';
+  document.getElementById('lb-over').style.width=(overdue/t*100)+'%';
+  document.getElementById('ls-active').textContent=`Active — ${active}`;
+  document.getElementById('ls-closed').textContent=`Closed — ${closed}`;
+  document.getElementById('ls-over2').textContent=`Overdue — ${overdue}`;
+
+  renderCustomers();
+  renderLoans();
+  renderCollections();
+  renderRecent();
+  renderEmiPlans();
+}
+
+function statusChip(s){
+  const m={active:'chip-active',closed:'chip-closed',overdue:'chip-overdue'};
+  return `<span class="chip ${m[s.toLowerCase()]||'chip-closed'}">${s}</span>`;
+}
+
+function renderCustomers(){
+  const filtered=customers.filter(c=>{
+    const q=custFilter.toLowerCase();
+    const matchQ=!q||(c.name.toLowerCase().includes(q)||c.pan_card.toLowerCase().includes(q)||c.phone_no.includes(q)||c.acc_no.toLowerCase().includes(q));
+    const matchS=!custStatusFilter||c.status===custStatusFilter;
+    return matchQ&&matchS;
+  });
+  const start=custPage*pageSize,end=start+pageSize,slice=filtered.slice(start,end);
+  document.getElementById('cust-page-info').textContent=`Page ${custPage+1} of ${Math.ceil(filtered.length/pageSize)||1}`;
+  const tbody=document.getElementById('cust-tbody');
+  if(!slice.length){tbody.innerHTML=`<tr><td colspan="9" style="text-align:center;padding:20px;color:#c4a8fc">No customers found</td></tr>`;return;}
+  tbody.innerHTML=slice.map((c,si)=>{
+    const realIdx=customers.indexOf(c);
+    return `<tr>
+    <td style="color:#1e0a3c;font-weight:500">${c.name}</td>
+    <td style="color:#6c3dd4">${c.pan_card}</td>
+    <td>${c.phone_no}</td>
+    <td style="color:#7c3aed">${c.acc_no}</td>
+    <td>${c.disbursed_date}</td>
+    <td style="font-weight:500">${fmtAmt(c.disbursed_amt)}</td>
+    <td style="color:#dc2626">${c.overdue>0?fmtAmt(c.overdue):'—'}</td>
+    <td>${statusChip(c.status)}</td>
+    <td>
+      <button class="btn btn-secondary btn-sm" style="margin-right:3px" onclick="editCustomer(${realIdx})"><i class="ti ti-edit" style="font-size:11px" aria-hidden="true"></i></button>
+      <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${realIdx})"><i class="ti ti-trash" style="font-size:11px" aria-hidden="true"></i></button>
+    </td>
+  </tr>`;}).join('');
+}
+
+function renderLoans(){
+  const filtered=customers.filter(c=>{
+    const q=loanFilter.toLowerCase();
+    const matchQ=!q||(c.name.toLowerCase().includes(q)||c.acc_no.toLowerCase().includes(q));
+    const matchS=!loanStatusFilter||c.status===loanStatusFilter;
+    return matchQ&&matchS;
+  });
+  const start=loanPage*pageSize,end=start+pageSize,slice=filtered.slice(start,end);
+  document.getElementById('loan-page-info').textContent=`Page ${loanPage+1} of ${Math.ceil(filtered.length/pageSize)||1}`;
+  const tbody=document.getElementById('loan-tbody');
+  if(!slice.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:20px;color:#c4a8fc">No records</td></tr>`;return;}
+  tbody.innerHTML=slice.map(c=>`<tr>
+    <td style="font-weight:500;color:#1e0a3c">${c.name}</td>
+    <td style="color:#7c3aed">${c.acc_no}</td>
+    <td>${c.disbursed_date}</td>
+    <td style="font-weight:500">${fmtAmt(c.disbursed_amt)}</td>
+    <td style="color:#dc2626">${c.overdue>0?fmtAmt(c.overdue):'—'}</td>
+    <td>${statusChip(c.status)}</td>
+    <td><button class="btn btn-secondary btn-sm" style="margin-right:4px" onclick="viewLoan('${c.acc_no}')">View</button><button class="btn btn-primary btn-sm" onclick="payLoan('${c.acc_no}','${c.name}')">Payment</button></td>
+  </tr>`).join('');
+}
+
+function renderCollections(){
+  const overdue=customers.filter(c=>c.status==='overdue'||c.overdue>0);
+  const tbody=document.getElementById('coll-tbody');
+  if(!overdue.length){tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:20px;color:#c4a8fc">No overdue records</td></tr>`;return;}
+  tbody.innerHTML=overdue.map(c=>`<tr>
+    <td style="font-weight:500;color:#1e0a3c">${c.name}</td>
+    <td>${c.phone_no}</td>
+    <td style="color:#7c3aed">${c.acc_no}</td>
+    <td style="color:#dc2626;font-weight:500">${fmtAmt(c.overdue)}</td>
+    <td>${statusChip(c.status)}</td>
+    <td>
+      <button class="btn btn-primary btn-sm" style="margin-right:4px" onclick="payLoan('${c.acc_no}','${c.name}')">Record Payment</button>
+      <button class="btn btn-secondary btn-sm" onclick="sendReminderFor('${c.name}')">Remind</button>
+    </td>
+  </tr>`).join('');
+}
+
+function renderRecent(){
+  const tbody=document.getElementById('recent-tbody');
+  const items=customers.slice(0,5);
+  if(!items.length){tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:16px;color:#c4a8fc">No data</td></tr>`;return;}
+  tbody.innerHTML=items.map(c=>{
+    const type=c.status==='overdue'?'<span class="tag to">Overdue</span>':c.status==='closed'?'<span class="tag tc">Closed</span>':'<span class="tag tp">Active</span>';
+    return `<tr><td>${type}</td><td style="font-size:11px;font-weight:500;color:#1e0a3c">${c.name}</td><td style="font-size:10px">${c.acc_no}</td><td style="font-size:10px;font-weight:500;${c.overdue>0?'color:#dc2626':'color:#16a34a'}">${c.overdue>0?fmtAmt(c.overdue):fmtAmt(c.disbursed_amt)}</td><td>${statusChip(c.status)}</td><td style="font-size:10px;color:#6c3dd4">Admin</td></tr>`;
+  }).join('');
+}
+
+function renderEmiPlans(){
+  document.getElementById('emi-total').textContent=emiPlans.length;
+  document.getElementById('emi-active').textContent=emiPlans.length;
+  document.getElementById('emi-covered').textContent=[...new Set(emiPlans.map(e=>e.acc_no))].length;
+  const list=document.getElementById('emi-plans-list');
+  if(!emiPlans.length){list.innerHTML=`<div class="empty-state"><i class="ti ti-calendar-off" aria-hidden="true"></i><p>No EMI plans yet</p><small>Upload EMI CSV or create a new plan</small></div>`;return;}
+  list.innerHTML=emiPlans.map((e,i)=>`
+    <div class="emi-plan-card">
+      <div class="emi-plan-header">
+        <div>
+          <div class="emi-plan-title">${e.name||getCustName(e.acc_no)} — ${e.acc_no}</div>
+          <div class="emi-plan-meta">EMI: ${e.emi_start_date} → ${e.emi_end_date}${e.mobile?' | '+e.mobile:''}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px">
+          <span class="chip chip-active">Active</span>
+          <button class="btn btn-secondary btn-sm" onclick="editEmiPlan(${i})"><i class="ti ti-edit" style="font-size:11px" aria-hidden="true"></i> Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteEmiPlan(${i})"><i class="ti ti-trash" style="font-size:11px" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="info-grid" style="grid-template-columns:repeat(3,1fr)">
+        ${e.dob?`<div class="info-item"><div class="info-key">DOB</div><div class="info-val">${e.dob}</div></div>`:''}
+        ${e.pan_card?`<div class="info-item"><div class="info-key">PAN</div><div class="info-val">${e.pan_card}</div></div>`:''}
+        ${e.address?`<div class="info-item"><div class="info-key">Address</div><div class="info-val" style="font-size:10.5px;white-space:normal">${e.address}</div></div>`:''}
+        <div class="info-item"><div class="info-key">Total EMI</div><div class="info-val">${e.total_emi||'—'}</div></div>
+        <div class="info-item"><div class="info-key">Paid EMI</div><div class="info-val" style="color:#16a34a">${e.total_paid_emi||'0'}</div></div>
+        <div class="info-item"><div class="info-key">Remaining EMI</div><div class="info-val" style="color:#7c3aed">${(e.total_emi-e.total_paid_emi)||'—'}</div></div>
+        <div class="info-item"><div class="info-key">Total Amount</div><div class="info-val">${fmtAmt(e.total_amt)}</div></div>
+        <div class="info-item"><div class="info-key">Amount Left</div><div class="info-val" style="color:#dc2626">${fmtAmt(e.amt_left)}</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTopups(){
+  const tbody=document.getElementById('topup-tbody');
+  if(!topups.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:20px;color:#c4a8fc">No top-up records</td></tr>`;return;}
+  tbody.innerHTML=topups.map(t=>`<tr>
+    <td style="font-weight:500;color:#1e0a3c">${getCustName(t.acc_no)}</td>
+    <td style="color:#7c3aed">${t.acc_no}</td>
+    <td style="font-weight:500;color:#7c3aed">${fmtAmt(t.topup_amount)}</td>
+    <td>${t.emi_start_date}</td>
+    <td>${t.emi_end_date}</td>
+    <td>${fmtAmt(t.monthly_emi)}</td>
+    <td><span class="chip chip-active">${t.status}</span></td>
+  </tr>`).join('');
+}
+
+function renderMoratoria(){
+  const tbody=document.getElementById('mora-tbody');
+  if(!moratoria.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:20px;color:#c4a8fc">No moratorium records</td></tr>`;return;}
+  tbody.innerHTML=moratoria.map(m=>`<tr>
+    <td style="font-weight:500;color:#1e0a3c">${getCustName(m.acc_no)}</td>
+    <td style="color:#7c3aed">${m.acc_no}</td>
+    <td>${m.moratorium_start}</td>
+    <td>${m.moratorium_end}</td>
+    <td>${m.interest_accrual==='yes'?'<span class="chip chip-overdue">Yes</span>':'<span class="chip chip-active">No</span>'}</td>
+    <td>${m.new_emi_end_date}</td>
+    <td><span class="chip chip-active">${m.status}</span></td>
+  </tr>`).join('');
+}
+
+function calcMonths(start,end){
+  if(!start||!end)return '—';
+  try{const s=new Date(start),e=new Date(end);return Math.max(0,Math.round((e-s)/(1000*60*60*24*30)));}
+  catch{return '—';}
+}
+
+function filterCustomers(q){custFilter=q;custPage=0;renderCustomers();}
+function filterCustomerStatus(s){custStatusFilter=s;custPage=0;renderCustomers();}
+function filterLoans(q){loanFilter=q;loanPage=0;renderLoans();}
+function filterLoanStatus(s){loanStatusFilter=s;loanPage=0;renderLoans();}
+
+function changePage(type,dir){
+  if(type==='cust'){custPage=Math.max(0,custPage+dir);renderCustomers();}
+  else{loanPage=Math.max(0,loanPage+dir);renderLoans();}
+}
+
+function globalSearch(q){
+  if(!q)return;
+  if(customers.some(c=>c.name.toLowerCase().includes(q.toLowerCase())||c.acc_no.toLowerCase().includes(q.toLowerCase()))){
+    custFilter=q;renderCustomers();
+  }
+}
+
+function addCustomer(){
+  const name=document.getElementById('nc-name').value.trim();
+  if(!name){showToast('Name is required!');return;}
+  customers.push({
+    name,
+    pan_card:document.getElementById('nc-pan').value.trim(),
+    phone_no:document.getElementById('nc-phone').value.trim(),
+    acc_no:document.getElementById('nc-acc').value.trim()||'LN'+Date.now().toString().slice(-5),
+    disbursed_date:document.getElementById('nc-date').value,
+    disbursed_amt:parseFloat(document.getElementById('nc-amt').value)||0,
+    overdue:parseFloat(document.getElementById('nc-overdue').value)||0,
+    status:document.getElementById('nc-status').value
+  });
+  closeModal('modal-add-customer');
+  updateAllData();
+  showToast('Customer added!');
+  ['nc-name','nc-pan','nc-phone','nc-acc','nc-amt','nc-overdue'].forEach(id=>document.getElementById(id).value='');
+}
+
+function deleteCustomer(idx){
+  if(!confirm(`Delete customer "${customers[idx].name}"? This cannot be undone.`))return;
+  customers.splice(idx,1);
+  updateAllData();
+  showToast('Customer deleted!');
+}
+
+function editCustomer(idx){
+  const c=customers[idx];
+  document.getElementById('nc-name').value=c.name;
+  document.getElementById('nc-pan').value=c.pan_card;
+  document.getElementById('nc-phone').value=c.phone_no;
+  document.getElementById('nc-acc').value=c.acc_no;
+  document.getElementById('nc-date').value=c.disbursed_date;
+  document.getElementById('nc-amt').value=c.disbursed_amt;
+  document.getElementById('nc-overdue').value=c.overdue;
+  document.getElementById('nc-status').value=c.status;
+  openModal('modal-add-customer');
+  document.querySelector('#modal-add-customer .modal-title').innerHTML=`Edit Customer <span class="modal-close" onclick="closeModal('modal-add-customer')"><i class="ti ti-x" aria-hidden="true"></i></span>`;
+  const saveBtn=document.querySelector('#modal-add-customer .btn-primary');
+  saveBtn.textContent='Save Changes';
+  saveBtn.onclick=function(){
+    const name=document.getElementById('nc-name').value.trim();
+    if(!name){showToast('Name is required!');return;}
+    customers[idx]={
+      name,
+      pan_card:document.getElementById('nc-pan').value.trim(),
+      phone_no:document.getElementById('nc-phone').value.trim(),
+      acc_no:document.getElementById('nc-acc').value.trim()||c.acc_no,
+      disbursed_date:document.getElementById('nc-date').value,
+      disbursed_amt:parseFloat(document.getElementById('nc-amt').value)||0,
+      overdue:parseFloat(document.getElementById('nc-overdue').value)||0,
+      status:document.getElementById('nc-status').value
+    };
+    closeModal('modal-add-customer');
+    updateAllData();
+    showToast('Customer updated!');
+    resetAddCustomerModal();
+  };
+}
+
+function resetAddCustomerModal(){
+  document.querySelector('#modal-add-customer .modal-title').innerHTML=`Add New Customer <span class="modal-close" onclick="closeModal('modal-add-customer')"><i class="ti ti-x" aria-hidden="true"></i></span>`;
+  const btn=document.querySelector('#modal-add-customer .btn-primary');
+  btn.textContent='Add Customer';
+  btn.onclick=addCustomer;
+  ['nc-name','nc-pan','nc-phone','nc-acc','nc-amt','nc-overdue'].forEach(id=>document.getElementById(id).value='');
+}
+
+function deleteEmiPlan(idx){
+  if(!confirm('Delete this EMI plan?'))return;
+  emiPlans.splice(idx,1);
+  renderEmiPlans();
+  showToast('EMI plan deleted!');
+}
+
+function editEmiPlan(idx){
+  const e=emiPlans[idx];
+  document.getElementById('ce-name').value=e.name||'';
+  document.getElementById('ce-acc').value=e.acc_no;
+  document.getElementById('ce-dob').value=e.dob||'';
+  document.getElementById('ce-pan').value=e.pan_card||'';
+  document.getElementById('ce-mobile').value=e.mobile||'';
+  document.getElementById('ce-address').value=e.address||'';
+  document.getElementById('ce-start').value=e.emi_start_date;
+  document.getElementById('ce-end').value=e.emi_end_date;
+  document.getElementById('ce-emi').value=e.total_emi||0;
+  document.getElementById('ce-paid-emi').value=e.total_paid_emi||0;
+  document.getElementById('ce-principal').value=e.total_amt||0;
+  document.getElementById('ce-amt-left').value=e.amt_left||0;
+  openModal('modal-create-emi');
+  document.querySelector('#modal-create-emi .modal-title').innerHTML=`Edit EMI Plan <span class="modal-close" onclick="closeModal('modal-create-emi')"><i class="ti ti-x" aria-hidden="true"></i></span>`;
+  const saveBtn=document.querySelector('#modal-create-emi .btn-primary');
+  saveBtn.textContent='Save Changes';
+  saveBtn.onclick=function(){
+    const acc=document.getElementById('ce-acc').value.trim();
+    if(!acc){showToast('Account No. required!');return;}
+    emiPlans[idx]={
+      name:document.getElementById('ce-name').value.trim(),
+      dob:document.getElementById('ce-dob').value,
+      pan_card:document.getElementById('ce-pan').value.trim(),
+      mobile:document.getElementById('ce-mobile').value.trim(),
+      address:document.getElementById('ce-address').value.trim(),
+      acc_no:acc,
+      emi_start_date:document.getElementById('ce-start').value,
+      emi_end_date:document.getElementById('ce-end').value,
+      total_emi:parseInt(document.getElementById('ce-emi').value)||0,
+      total_paid_emi:parseInt(document.getElementById('ce-paid-emi').value)||0,
+      total_amt:parseFloat(document.getElementById('ce-principal').value)||0,
+      amt_left:parseFloat(document.getElementById('ce-amt-left').value)||0
+    };
+    closeModal('modal-create-emi');
+    renderEmiPlans();
+    showToast('EMI plan updated!');
+    resetCreateEmiModal();
+  };
+}
+
+function resetCreateEmiModal(){
+  document.querySelector('#modal-create-emi .modal-title').innerHTML=`Create EMI Plan <span class="modal-close" onclick="closeModal('modal-create-emi')"><i class="ti ti-x" aria-hidden="true"></i></span>`;
+  const btn=document.querySelector('#modal-create-emi .btn-primary');
+  btn.textContent='Create Plan';
+  btn.onclick=createEmiPlan;
+}
+
+function addLoan(){
+  const name=document.getElementById('nl-name').value.trim();
+  if(!name){showToast('Name required!');return;}
+  customers.push({
+    name,
+    pan_card:'',
+    phone_no:'',
+    acc_no:document.getElementById('nl-acc').value.trim()||'LN'+Date.now().toString().slice(-5),
+    disbursed_date:document.getElementById('nl-date').value,
+    disbursed_amt:parseFloat(document.getElementById('nl-amt').value)||0,
+    overdue:parseFloat(document.getElementById('nl-overdue').value)||0,
+    status:document.getElementById('nl-status').value
+  });
+  closeModal('modal-add-loan');
+  updateAllData();
+  showToast('Loan added!');
+}
+
+function recordPayment(){
+  const name=document.getElementById('rp-name').value.trim();
+  const acc=document.getElementById('rp-acc').value.trim();
+  const amt=parseFloat(document.getElementById('rp-amt').value)||0;
+  if(!name||!amt){showToast('Name and amount required!');return;}
+  payments.push({name,acc,amt,type:document.getElementById('rp-type').value,date:document.getElementById('rp-date').value||new Date().toISOString().split('T')[0],by:'Admin'});
+  const tbody=document.getElementById('pay-tbody');
+  tbody.innerHTML=payments.map(p=>`<tr><td style="font-weight:500;color:#1e0a3c">${p.name}</td><td style="color:#7c3aed">${p.acc}</td><td style="font-weight:500;color:#16a34a">${fmtAmt(p.amt)}</td><td>${p.date}</td><td><span class="tag tp">${p.type}</span></td><td>${p.by}</td></tr>`).join('');
+  closeModal('modal-record-payment');
+  showToast(`Payment of ${fmtAmt(amt)} recorded!`);
+  ['rp-name','rp-acc','rp-amt','rp-date'].forEach(id=>document.getElementById(id).value='');
+}
+
+function createEmiPlan(){
+  const acc=document.getElementById('ce-acc').value.trim();
+  if(!acc){showToast('Account No. required!');return;}
+  emiPlans.push({
+    name:document.getElementById('ce-name').value.trim(),
+    dob:document.getElementById('ce-dob').value,
+    pan_card:document.getElementById('ce-pan').value.trim(),
+    mobile:document.getElementById('ce-mobile').value.trim(),
+    address:document.getElementById('ce-address').value.trim(),
+    acc_no:acc,
+    emi_start_date:document.getElementById('ce-start').value,
+    emi_end_date:document.getElementById('ce-end').value,
+    total_emi:parseInt(document.getElementById('ce-emi').value)||0,
+    total_paid_emi:parseInt(document.getElementById('ce-paid-emi').value)||0,
+    total_amt:parseFloat(document.getElementById('ce-principal').value)||0,
+    amt_left:parseFloat(document.getElementById('ce-amt-left').value)||0
+  });
+  closeModal('modal-create-emi');
+  renderEmiPlans();
+  document.getElementById('kpi-emi').textContent=emiPlans.length;
+  showToast('EMI Plan created!');
+}
+
+function createTopup(){
+  const acc=document.getElementById('ct-acc').value.trim();
+  if(!acc){showToast('Account No. required!');return;}
+  topups.push({
+    acc_no:acc,
+    topup_amount:parseFloat(document.getElementById('ct-amt').value)||0,
+    emi_start_date:document.getElementById('ct-start').value,
+    emi_end_date:document.getElementById('ct-end').value,
+    monthly_emi:parseFloat(document.getElementById('ct-emi').value)||0,
+    status:document.getElementById('ct-status').value
+  });
+  closeModal('modal-create-topup');
+  renderTopups();
+  showToast('Top-up created!');
+}
+
+function createMora(){
+  const acc=document.getElementById('cm-acc').value.trim();
+  if(!acc){showToast('Account No. required!');return;}
+  moratoria.push({
+    acc_no:acc,
+    moratorium_start:document.getElementById('cm-start').value,
+    moratorium_end:document.getElementById('cm-end').value,
+    interest_accrual:document.getElementById('cm-interest').value,
+    new_emi_end_date:document.getElementById('cm-new-end').value,
+    status:document.getElementById('cm-status').value
+  });
+  closeModal('modal-create-mora');
+  renderMoratoria();
+  showToast('Moratorium created!');
+}
+
+function viewLoan(acc){
+  const c=customers.find(x=>x.acc_no===acc);
+  if(!c)return;
+  showToast(`Viewing: ${c.name} (${acc})`);
+}
+
+function payLoan(acc,name){
+  document.getElementById('rp-acc').value=acc;
+  document.getElementById('rp-name').value=name;
+  openModal('modal-record-payment');
+}
+
+function sendReminderFor(name){
+  document.getElementById('rem-cust').value=name;
+  openModal('modal-reminder');
+}
+
+function sendReminder(){
+  const cust=document.getElementById('rem-cust').value;
+  const ch=document.getElementById('rem-ch').value;
+  closeModal('modal-reminder');
+  showToast(`Reminder sent to ${cust} via ${ch}!`);
+}
+
+function addTask(){
+  const title=document.getElementById('task-title').value.trim();
+  if(!title){showToast('Task title required!');return;}
+  tasks.push({title,date:document.getElementById('task-date').value,priority:document.getElementById('task-priority').value,done:false});
+  const pMap={High:'to',Medium:'te',Low:'tp'};
+  const list=document.getElementById('tasks-list');
+  list.innerHTML=tasks.map((t,i)=>`<div class="card" style="display:flex;align-items:center;gap:10px;padding:10px 12px">
+    <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:14px;height:14px;accent-color:#7c3aed">
+    <div style="flex:1"><div style="font-size:12px;font-weight:500;color:#1e0a3c;${t.done?'text-decoration:line-through;color:#9b6ff5':''}">${t.title}</div>${t.date?`<div style="font-size:10px;color:#9b6ff5">Due: ${t.date}</div>`:''}</div>
+    <span class="chip ${pMap[t.priority]||'tp'}">${t.priority}</span>
+    <button class="btn btn-danger btn-sm" onclick="removeTask(${i})"><i class="ti ti-trash" style="font-size:12px" aria-hidden="true"></i></button>
+  </div>`).join('');
+  closeModal('modal-add-task');
+  showToast('Task added!');
+  ['task-title','task-date'].forEach(id=>document.getElementById(id).value='');
+}
+
+function toggleTask(i){tasks[i].done=!tasks[i].done;addTask();}
+function removeTask(i){tasks.splice(i,1);if(!tasks.length)document.getElementById('tasks-list').innerHTML=`<div class="empty-state"><i class="ti ti-checkbox" aria-hidden="true"></i><p>No tasks</p></div>`;else addTask();}
+
+function generateReport(type){
+  const out=document.getElementById('report-output');
+  if(type==='portfolio'){
+    const total=customers.reduce((s,c)=>s+c.disbursed_amt,0);
+    out.innerHTML=`<div class="card"><div class="ctitle">Portfolio Summary</div><div class="info-grid"><div class="info-item"><div class="info-key">Total Customers</div><div class="info-val">${customers.length}</div></div><div class="info-item"><div class="info-key">Total Disbursed</div><div class="info-val">${fmtAmt(total)}</div></div><div class="info-item"><div class="info-key">Active Loans</div><div class="info-val">${customers.filter(c=>c.status==='active').length}</div></div><div class="info-item"><div class="info-key">EMI Plans</div><div class="info-val">${emiPlans.length}</div></div></div></div>`;
+  }else if(type==='overdue'){
+    const od=customers.filter(c=>c.overdue>0);
+    out.innerHTML=`<div class="card"><div class="ctitle">Overdue Report — ${od.length} accounts</div>${od.length?od.map(c=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid #f0ebff;font-size:11px"><span style="font-weight:500;color:#1e0a3c">${c.name}</span><span style="color:#dc2626;font-weight:500">${fmtAmt(c.overdue)}</span></div>`).join(''):'<div style="padding:12px;color:#9b6ff5;font-size:11px">No overdue accounts</div>'}</div>`;
+  }else if(type==='collection'){
+    out.innerHTML=`<div class="card"><div class="ctitle">Collection Report</div><div style="padding:12px;font-size:11.5px;color:#6c3dd4">${payments.length} payments recorded — Total: ${fmtAmt(payments.reduce((s,p)=>s+p.amt,0))}</div></div>`;
+  }else{
+    out.innerHTML=`<div class="card"><div class="ctitle">EMI Due Report</div><div style="padding:12px;font-size:11.5px;color:#6c3dd4">${emiPlans.length} active EMI plans. Upload EMI CSV for full schedule.</div></div>`;
+  }
+  showToast('Report generated!');
+}
+
+function exportCSV(){
+  if(!customers.length){showToast('No data to export!');return;}
+  const h='name,pan_card,phone_no,acc_no,disbursed_date,disbursed_amt,overdue,status';
+  const rows=customers.map(c=>`${c.name},${c.pan_card},${c.phone_no},${c.acc_no},${c.disbursed_date},${c.disbursed_amt},${c.overdue},${c.status}`);
+  const blob=new Blob([[h,...rows].join('\n')],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='customers_export.csv';a.click();
+  showToast('CSV exported!');
+}
+
+function clearAllData(){
+  if(!confirm('Clear all data? This cannot be undone.'))return;
+  customers=[];emiPlans=[];topups=[];moratoria=[];payments=[];tasks=[];
+  updateAllData();
+  document.getElementById('tasks-list').innerHTML=`<div class="empty-state"><i class="ti ti-checkbox" aria-hidden="true"></i><p>No tasks</p></div>`;
+  document.getElementById('pay-tbody').innerHTML=`<tr><td colspan="6" style="text-align:center;padding:24px;color:#c4a8fc">No payments</td></tr>`;
+  showToast('All data cleared!');
+}
+
+document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+</script>
